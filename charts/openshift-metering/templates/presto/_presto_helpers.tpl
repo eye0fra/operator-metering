@@ -45,6 +45,35 @@ connector.name=blackhole
 connector.name=memory
 {{ end }}
 
+{{- define "presto-prometheus-catalog-properties" -}}
+{{- with .Values.presto.spec.config.connectors.prometheus -}}
+connector.name=prometheus
+{{- if .uri }}
+prometheus-uri={{ .uri }}
+{{- else }}
+prometheus-uri=http://localhost:9090
+{{- end }}
+{{- if .chunkSizeDuration }}
+query-chunk-size-duration={{ .chunkSizeDuration }}
+{{- else }}
+query-chunk-size-duration=1h
+{{- end }}
+{{- if .maxQueryRangeDuration }}
+max-query-range-duration={{ .maxQueryRangeDuration }}
+{{- else }}
+max-query-range-duration=1d
+{{- end }}
+{{- if .cacheDuration }}
+cache-duration={{ .cacheDuration }}
+{{- else }}
+cache-duration=30s
+{{- end }}
+{{- if .bearer.tokenFile }}
+bearer-token-file={{ .bearer.tokenFile }}
+{{- end }} {{- /* end-if */ -}}
+{{- end }} {{- /* end-with */ -}}
+{{- end }} {{- /* end-define */ -}}
+
 {{- define "presto-tpcds-catalog-properties" -}}
 connector.name=tpcds
 {{ end }}

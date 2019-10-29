@@ -544,6 +544,14 @@ presto:
             useInstanceCredentials: null
 
         extraConnectorFiles: []
+        prometheus:
+          enabled: false
+          uri: ""
+          chunkSizeDuration: null
+          maxQueryRangeDuration: null
+          cacheDuration: null
+          bearer:
+            tokenFile: null
 
     coordinator:
       affinity:
