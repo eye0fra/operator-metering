@@ -17,6 +17,9 @@ _reporting_op_default_spec: "{{ meteringconfig_default_values['reporting-operato
 _hadoop_default_spec: "{{ meteringconfig_default_values.hadoop.spec }}"
 _ghostunnel_default: "{{ meteringconfig_default_values.__ghostunnel }}"
 
+# Allow Presto to query Prometheus
+meteringconfig_create_presto_prometheus_auth: "{{ _presto_spec.config.connectors.prometheus.enabled | default(false) }}"
+
 meteringconfig_reporting_operator_default_image_override: "{{ lookup('env', 'METERING_REPORTING_OPERATOR_IMAGE') }}"
 meteringconfig_oauth_proxy_default_image_override: "{{ lookup('env', 'OAUTH_PROXY_IMAGE') }}"
 meteringconfig_presto_default_image_override: "{{ lookup('env', 'METERING_PRESTO_IMAGE') }}"
