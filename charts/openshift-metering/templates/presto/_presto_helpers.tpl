@@ -45,8 +45,8 @@ connector.name=blackhole
 connector.name=memory
 {{ end }}
 
-{{- if .Values.presto.spec.config.connectors.prometheus.enabled }}
 {{- define "presto-prometheus-catalog-properties" -}}
+{{- if .Values.presto.spec.config.connectors.prometheus.enabled }}
 {{- with .Values.presto.spec.config.connectors.prometheus -}}
 connector.name=prometheus
 {{- if .uri }}
@@ -73,8 +73,8 @@ cache-duration=30s
 bearer-token-file={{ .bearer.tokenFile }}
 {{- end }} {{- /* end-if */ -}}
 {{- end }} {{- /* end-with */ -}}
-{{- end }} {{- /* end-define */ -}}
 {{- end }} {{- /* end-if-enabled */ -}}
+{{- end }} {{- /* end-define */ -}}
 
 {{- define "presto-tpcds-catalog-properties" -}}
 connector.name=tpcds
