@@ -552,6 +552,7 @@ presto:
           cacheDuration: null
           bearer:
             tokenFile: null
+          useServiceAccountToken: false
 
     coordinator:
       affinity:

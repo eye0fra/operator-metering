@@ -375,6 +375,7 @@ _ocp_enabled_overrides:
             uri: "https://prometheus-k8s.openshift-monitoring.svc:9091/"
             bearer:
               tokenFile: "/var/run/secrets/kubernetes.io/serviceaccount/token"
+            useServiceAccountToken: true
 
 #
 # Override the default values with _tls_overrides when spec.tls.enabled is set to true, else use values.yaml and meteringconfig_spec_overrides
