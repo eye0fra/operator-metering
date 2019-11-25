@@ -1578,6 +1578,10 @@ objects:
                                     description: URI for Prometheus.
                                     format: uri
                                     type: string
+                                  useServiceAccountToken:
+                                    description: Whether to use the cluster service
+                                      account token for the bearer token
+                                    type: boolean
                                 type: object
                             type: object
                           environment:

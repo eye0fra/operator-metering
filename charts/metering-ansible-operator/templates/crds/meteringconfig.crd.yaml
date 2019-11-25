@@ -1590,6 +1590,9 @@ spec:
                                     tokenFile:
                                       description: Path to token file for bearer authentication to Prometheus.
                                       type: string
+                                useServiceAccountToken:
+                                  description: Whether to use the cluster service account token for the bearer token
+                                  type: boolean
                         environment:
                           type: string
                         maxQueryLength:
