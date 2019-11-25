@@ -365,6 +365,7 @@ _ocp_enabled_overrides:
       config:
         prometheus:
           url: "https://prometheus-k8s.openshift-monitoring.svc:9091/"
+
   presto:
     spec:
       config:
