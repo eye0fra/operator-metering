@@ -442,8 +442,9 @@ type PrestoWorkerSpec struct {
 	Config                        *PrestoServerConfig          `json:"config,omitempty"`
 }
 type PrestoConnectorConfig struct {
-	Hive              *PrestoConnectorHiveConfig `json:"hive,omitempty"`
-	ConnectorFileList *PrestoConnectorFileList   `json:"extraConnectorFiles,omitempty"`
+	Hive              *PrestoConnectorHiveConfig       `json:"hive,omitempty"`
+	Prometheus        *PrestoPrometheusConnectorConfig `json:"prometheus,omitempty"`
+	ConnectorFileList *PrestoConnectorFileList         `json:"extraConnectorFiles,omitempty"`
 }
 type PrestoConnectorHiveConfig struct {
 	UseHadoopConfig        *bool      `json:"useHadoopConfig,omitempty"`
@@ -451,6 +452,18 @@ type PrestoConnectorHiveConfig struct {
 	MetastoreURI           string     `json:"metastoreURI,omitempty"`
 	MetastoreTimeout       string     `json:"metastoreTimeout,omitempty"`
 	TLS                    *TLSConfig `json:"tls,omitempty"`
+}
+type PrestoPrometheusConnectorConfig struct {
+	Enabled                *bool                                  `json:"enabled,omitempty"`
+	Uri                    string                                 `json:"uri,omitempty"`
+	ChunkSizeDuration      string                                 `json:"chunkSizeDuration,omitempty"`
+	MaxQueryRangeDuration  string                                 `json:"maxQueryRangeDuration,omitempty"`
+	CacheDuration          string                                 `json:"cacheDuration,omitempty"`
+	Bearer                 *PrestoPrometheusConnectorConfigBearer `json:"bearer,omitempty"`
+	UseServiceAccountToken *bool                                  `json:"UseServiceAccountToken,omitempty"`
+}
+type PrestoPrometheusConnectorConfigBearer struct {
+	TokenFile string `json:"tokenFile,omitempty"`
 }
 type PrestoConnectorFileList struct {
 	Name    string `json:"name,omitempty"`
