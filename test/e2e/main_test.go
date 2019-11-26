@@ -346,6 +346,63 @@ func TestManualMeteringInstall(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name:                      "PrometheusConnectorWorks",
+			MeteringOperatorImageRepo: meteringOperatorImageRepo,
+			MeteringOperatorImageTag:  meteringOperatorImageTag,
+			Skip:                      false,
+			InstallSubTest: InstallTestCase{
+				Name:     "testPrometheusConnectorWorks",
+				TestFunc: testPrometheusConnectorWorks,
+			},
+			MeteringConfigSpec: metering.MeteringConfigSpec{
+				LogHelmTemplate: testhelpers.PtrToBool(true),
+				UnsupportedFeatures: &metering.UnsupportedFeaturesConfig{
+					EnableHDFS: testhelpers.PtrToBool(true),
+				},
+				Storage: &metering.StorageConfig{
+					Type: "hive",
+					Hive: &metering.HiveStorageConfig{
+						Type: "hdfs",
+						Hdfs: &metering.HiveHDFSConfig{
+							Namenode: "hdfs-namenode-0.hdfs-namenode:9820",
+						},
+					},
+				},
+				Presto: &metering.Presto{
+					Spec: &metering.PrestoSpec{
+						Image: &metering.ImageConfig{
+							Repository: "quay.io/coreos/presto",
+							Tag:        "prometheus_connector_320",
+						},
+						Config: &metering.PrestoConfig{
+							NodeSchedulerIncludeCoordinator: nil,
+							Environment:                     "",
+							MaxQueryLength:                  "",
+							AWS:                             nil,
+							Azure:                           nil,
+							Gcs:                             nil,
+							S3Compatible:                    nil,
+							TLS:                             nil,
+							Auth:                            nil,
+							Connectors: &metering.PrestoConnectorConfig{
+								Prometheus: &metering.PrestoPrometheusConnectorConfig{
+									Enabled: testhelpers.PtrToBool(true),
+									Uri:     "http://prometheus-k8s.monitoring.svc:9090"},
+							},
+						},
+						Coordinator: &metering.PrestoCoordinatorSpec{
+							Resources: &v1.ResourceRequirements{
+								Requests: v1.ResourceList{
+									v1.ResourceCPU:    resource.MustParse("1"),
+									v1.ResourceMemory: resource.MustParse("1Gi"),
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 	}
 
 	for _, testCase := range testInstallConfigs {
